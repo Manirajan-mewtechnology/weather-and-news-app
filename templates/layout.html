@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Screen Layout</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .left {
+            width: 20%;
+            background-color: #D5D2D1;
+            height: 100%;
+        }
+        .right {
+            width: 80%;
+            background-color: #d1ecf1;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <!-- Content for the 20% width area -->
+            <h1>Left Panel</h1>
+            <p>Content goes here...</p>
+        </div>
+        <div class="right">
+            <!-- Content for the 80% width area -->
+            <h1>Right Panel</h1>
+            <p>More content over here...</p>
+        </div>
+    </div>
+</body>
+</html>
