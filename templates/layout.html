@@ -90,7 +90,7 @@
             <div class="news-container">
                 {% for item in news %}
                 <div class="news-item">
-                    <h3 class="news-title">{{ item.title }}</h3>
+                    <h3 class="news-title"><a href="{{ item.title_url }}">{{ item.title }}</a></h3>
                     <img src="{{ item.image_url }}" alt="News Image" class="news-image">
                 </div>
                 {% endfor %}

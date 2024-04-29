@@ -43,14 +43,17 @@ def get_news(country='in', category='general', query=''):
                 }
     response = requests.get(NEWS_API_ENDPOINT,params=params)
     data = response.json()
-    print("-"*20)
-    print(data)
+    # print("-"*20)
+    # print(data)
     articles = data.get('articles',[])
     news_data = []
     for article in articles:
         title = article.get('title','No Title')
+        title_url = article.get('url', 'No URL')
         image_url = article.get('urlToImage', 'https://via.placeholder.com/150')
-        news_data.append({'title':title, 'image_url':image_url})
+        news_data.append({'title':title, 'image_url':image_url, 'title_url':title_url})
+    print('*'*30)
+    print(news_data)
     return news_data
 
 @app.route('/', methods=['GET','POST'])
