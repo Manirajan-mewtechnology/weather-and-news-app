@@ -34,46 +34,36 @@ def get_weather(city):
     else:
         return None
     
-def get_news(country='in', category='general', query=''):
-    params = {
-        'county':country,
-        'category':category,
-        'q':query,
-        'apiKey':NEWS_API_KEY
-                }
-    response = requests.get(NEWS_API_ENDPOINT,params=params)
+def get_news(query):
+    url = f'https://newsapi.org/v2/everything?q={query}&apiKey={NEWS_API_KEY}'
+    response = requests.get(url)
     data = response.json()
-    # print("-"*20)
-    # print(data)
-    articles = data.get('articles',[])
-    news_data = []
-    for article in articles:
-        title = article.get('title','No Title')
-        title_url = article.get('url', 'No URL')
-        image_url = article.get('urlToImage', 'https://via.placeholder.com/150')
-        news_data.append({'title':title, 'image_url':image_url, 'title_url':title_url})
-    print('*'*30)
-    print(news_data)
-    return news_data
+
+    if response.status_code == 200:
+        articles = data.get('articles', [])
+        news_data = []
+        for article in articles:
+            title = article.get('title','No Title')
+            title_url = article.get('url', 'No URL')
+            image_url = article.get('urlToImage', 'https://via.placeholder.com/150')
+            news_data.append({'title':title, 'image_url':image_url, 'title_url':title_url})
+        # print('*'*30)
+        # print(news_data)
+        return news_data
 
 @app.route('/', methods=['GET','POST'])
 def home():
     default_city = "Bangalore"
-    default_country = 'in'
-    default_category = 'general'
+    default = 'None'
     if request.method == 'POST':
         city = request.form.get('city',default_city)
-        country = request.form.get('country',default_country)
-        category = request.form.get('category',default_category)
         query = request.form.get('query','')
     else:
         city = request.args.get('city',default_city)
-        country = request.args.get('country',default_country)
-        category = request.args.get('category',default_category)
-        query = request.args.get('query','')
+        query = request.args.get('query',default)
 
     weather = get_weather(city)
-    news = get_news(country, category, query)
+    news = get_news(query)
 
 
 
