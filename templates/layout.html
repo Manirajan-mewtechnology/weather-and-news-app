@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Static Split Screen Layout with Search Boxes</title>
+    <title>Weather and News App</title>
     <style>
         body, html {
             height: 100%;
@@ -22,10 +22,7 @@
         }
         .right {
             width: 80%;
-            /* background-color: #d1ecf1; */
-            /* height: 100%; */
             margin-left: 22%; 
-            /* overflow-y: auto;  */
             padding: 20px;
         }
         input[type="text"] {
@@ -55,6 +52,10 @@
         .search-form{
             margin-bottom: 20px;
         }
+        .date-time {
+            font-size: 18px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -73,17 +74,15 @@
                 <p>Temperature: {{ weather.temperature }}°C</p>
                 <p>Humidity: {{ weather.humidity }}%</p>
                 <p>Wind Speed: {{ weather.wind_speed }}</p>
-                <h2 class="date-time">Time : {{ weather.date_time }}</h2>
-                <h2 class="date-time">Date: {{ weather.today_date }}</h2>
+                <h2 class="date-time" id="current-time">Time : {{ weather.date_time }}</h2>
+                <!-- <h2 class="date-time">Date: {{ weather.today_date }}</h2> -->
             </div>
             {% endif %}
-            <p>...</p>
         </div>
         <div class="right">
             <!-- Content for the 80% width area -->
             <h1>Daily News</h1>
             <form  method="get" class="search-form">
-                <!-- <form action="/search_right" method="get"> -->
                 <input type="text" name="query" placeholder="Search for news">
                 <button type="submit">Search News</button>
             </form>
@@ -95,8 +94,18 @@
                 </div>
                 {% endfor %}
             </div>
-            <!-- <p>...</p> -->
         </div>
     </div>
+    
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var currentTime = now.toLocaleString();
+            document.getElementById('current-time').innerHTML = "Time: " + currentTime;
+        }
+        
+        setInterval(updateClock, 1000); // Update time every second
+        updateClock(); // Initial call to display current time
+    </script>
 </body>
 </html>
