@@ -62,10 +62,15 @@ def home():
         city = request.args.get('city',default_city)
         query = request.args.get('query',default)
 
-    weather = get_weather(city)
-    news = get_news(query)
+    if query:
+        news = get_news(query)
+    else:
+        news = get_news(default)
 
-
+    if city:
+        weather = get_weather(city)
+    else:
+        weather = get_weather(default_city)
 
     return render_template('layout.html', weather=weather, news=news)
 
